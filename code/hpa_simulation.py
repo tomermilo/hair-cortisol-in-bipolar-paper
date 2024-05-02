@@ -28,11 +28,14 @@ def HPA_GLANDS(t, y, ut=lambda t: 1, pars=PARS):
     x1, x2, x3, P, A = y
     u = ut(t)
 
-    # dx1 = pars["gamma_x1"]*(u*MR(x3)*GR(x3) - x1) # with GR
-    # dx2 = pars["gamma_x2"]*(x1*P*GR(x3) - x2)   # with GR
-    dx1 = pars["gamma_x1"]*(u*MR(x3) - x1) # without GR
-    dx2 = pars["gamma_x2"]*(x1*P - x2)     # without GR
+    dx1 = pars["gamma_x1"]*(u*MR(x3)*GR(x3) - x1) # with GR
+    # dx1 = pars["gamma_x1"]*(u*MR(x3) - x1) # without GR
+
+    dx2 = pars["gamma_x2"]*(x1*P*GR(x3) - x2)   # with GR
+    # dx2 = pars["gamma_x2"]*(x1*P - x2)     # without GR
+
     dx3 = pars["gamma_x3"]*(x2*A - x3)
+
     dP = pars["gamma_P"]*P*(x1 - 1)
     dA = pars["gamma_A"]*A*(x2 - 1)
 
@@ -50,10 +53,12 @@ def HPA_NO_GLANDS(t, y, ut=lambda t: 1, pars=PARS):
     x1, x2, x3 = y
     u = ut(t)
 
-    # dx1 = pars["gamma_x1"]*(u*MR(x3)*GR(x3) - x1) # with GR
-    # dx2 = pars["gamma_x2"]*(x1*GR(x3) - x2)   # with GR
-    dx1 = pars["gamma_x1"]*(u*MR(x3) - x1) # without GR
-    dx2 = pars["gamma_x2"]*(x1 - x2)     # without GR
+    dx1 = pars["gamma_x1"]*(u*MR(x3)*GR(x3) - x1) # with GR
+    # dx1 = pars["gamma_x1"]*(u*MR(x3) - x1) # without GR
+
+    dx2 = pars["gamma_x2"]*(x1*GR(x3) - x2)   # with GR
+    # dx2 = pars["gamma_x2"]*(x1 - x2)     # without GR
+
     dx3 = pars["gamma_x3"]*(x2 - x3)
 
     return [dx1, dx2, dx3]
